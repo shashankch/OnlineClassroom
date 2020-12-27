@@ -19,16 +19,10 @@ class Navbar extends React.Component {
           <div className='nav-links'>
             <ul>
               <Link to='/'>
-                <span className='brand'>RENTLO</span>
+                <span className='brand'>E-Learning</span>
               </Link>
               <li>
                 <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/search'>Search-Property</Link>
-              </li>
-              <li>
-                <Link to='/admin'>Post-Property</Link>
               </li>
             </ul>
           </div>

@@ -9,6 +9,7 @@ class Signup extends Component {
       email: '',
       password: '',
       name: '',
+      type: '',
     };
   }
 
@@ -21,15 +22,16 @@ class Signup extends Component {
   onFormSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password, name } = this.state;
+    const { email, password, name, type } = this.state;
 
     if (email && password && name) {
-      this.props.dispatch(signup(email, password, name));
+      this.props.dispatch(signup(email, password, name, type));
     }
     this.setState({
       email: '',
       password: '',
       name: '',
+      type: '',
     });
   };
 
@@ -69,6 +71,18 @@ class Signup extends Component {
             value={this.state.password}
           />
         </div>
+        <div className='field'>
+          <select
+            required
+            onChange={(e) => this.handleInputChange('type', e.target.value)}
+            value={this.state.type}
+          >
+            <option>Please Select Type</option>
+            <option value='teacher'>teacher</option>
+            <option value='student'>student</option>
+          </select>
+        </div>
+
         <div className='field'>
           {inProgress ? (
             <button onClick={this.onFormSubmit} disabled={inProgress}>

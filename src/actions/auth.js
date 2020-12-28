@@ -69,7 +69,7 @@ export function logoutUser() {
   };
 }
 
-export function signup(email, password, name) {
+export function signup(email, password, name,type) {
   return (dispatch) => {
     dispatch(startSignup());
     const url = APIUrls.signup();
@@ -82,6 +82,7 @@ export function signup(email, password, name) {
         email,
         password,
         name,
+        type
       }),
     })
       .then((response) => response.json())

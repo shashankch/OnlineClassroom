@@ -1,9 +1,39 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home, Navbar, Page404, Login, Signup } from './';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
+import { Home, Navbar, Page404, Login, Signup, Profile } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import { connect } from 'react-redux';
+const PrivateRoute = (privateRouteProps) => {
+  const { isLoggedin, path, component: Component } = privateRouteProps;
+
+  return (
+    <Route
+      path={path}
+      render={(props) => {
+        console.log('props', props);
+        console.log('isLoggedin', isLoggedin);
+        return isLoggedin ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: {
+                from: props.location,
+              },
+            }}
+          />
+        );
+      }}
+    />
+  );
+};
 
 class App extends React.Component {
   componentDidMount() {
@@ -18,29 +48,33 @@ class App extends React.Component {
           email: user.email,
           _id: user._id,
           name: user.name,
+          type:user.type
         })
       );
     }
   }
 
   render() {
-    const { posts } = this.props;
+    const { auth } = this.props;
     return (
       <Router>
         <div>
           <Navbar />
 
           <Switch>
-            <Route
-              exact
-              path='/'
-              render={(props) => {
-                return <Home {...props} posts={posts} />;
-              }}
-            />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-
+            <PrivateRoute
+              exact
+              path='/'
+              component={Home}
+              isLoggedin={auth.isLoggedin}
+            />
+            <PrivateRoute
+              path='/profile'
+              component={Profile}
+              isLoggedin={auth.isLoggedin}
+            />
             <Route component={Page404} />
           </Switch>
         </div>
@@ -48,11 +82,9 @@ class App extends React.Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   return {
-    state,
+    auth: state.auth,
   };
 }
-
 export default connect(mapStateToProps)(App);

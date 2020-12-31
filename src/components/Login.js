@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { login } from '../actions/auth';
+import { Redirect } from 'react-router-dom';
+import { login, clearAuthState } from '../actions/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -40,14 +40,15 @@ class Login extends Component {
     }
   };
 
-  componentDidUpdate() {
-    if (this.props.auth.isLoggedin) {
-      this.props.history.push('/');
-    }
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
   }
-
   render() {
-    const { inProgress, error } = this.props.auth;
+    const { inProgress, error, isLoggedin } = this.props.auth;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    if (isLoggedin) {
+      return <Redirect to={from} />;
+    }
     console.log('are baba yeh props:', this.props);
     return (
       <form className='login-form'>

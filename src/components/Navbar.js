@@ -31,7 +31,7 @@ class Navbar extends React.Component {
           {auth.isLoggedin && (
             <div className='user'>
               <img
-                src='https://www.flaticon.com/svg/static/icons/svg/64/64572.svg'
+                src='https://www.flaticon.com/svg/static/icons/svg/847/847969.svg'
                 alt='user-dp'
                 id='user-dp'
               />

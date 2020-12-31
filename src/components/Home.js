@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Teacher, Student } from './';
 
 class Home extends Component {
-  render() {
-    return <div>
+  render(props) {
+    const { type } = this.props;
 
-      
-    </div>;
+    return <div>{type === 'teacher' ?  <Teacher /> :  <Student />}</div>;
   }
 }
-
-export default Home;
+function mapStateToProps(state) {
+  return {
+    type: state.auth.user.type,
+  };
+}
+export default connect(mapStateToProps)(Home);

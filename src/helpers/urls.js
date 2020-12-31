@@ -3,8 +3,8 @@ export const APIUrls = {
   login: () => `${API_ROOT}/user/login`,
   signup: () => `${API_ROOT}/user/register`,
   update: () => `${API_ROOT}/user/update`,
-  createAllAssignment: () => `${API_ROOT}/assignment/create`,
+  createAssignment: () => `${API_ROOT}/assignment/create`,
   submitAssignment: () => `${API_ROOT}/assignment/submit`,
   evaluateAssignment: () => `${API_ROOT}/assignment/evalutate`,
-  getAllAssignment: () => `${API_ROOT}/assignment/all-assignments`,
+  getAllAssignments: () => `${API_ROOT}/assignment/all-assignments`,
 };

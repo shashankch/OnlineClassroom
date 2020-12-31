@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signup } from '../actions/auth';
+import { signup, clearAuthState } from '../actions/auth';
 
 class Signup extends Component {
   constructor(props) {
@@ -11,6 +11,10 @@ class Signup extends Component {
       name: '',
       type: '',
     };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
   }
 
   handleInputChange = (field, value) => {
@@ -24,7 +28,7 @@ class Signup extends Component {
 
     const { email, password, name, type } = this.state;
 
-    if (email && password && name) {
+    if (email && password && name && type) {
       this.props.dispatch(signup(email, password, name, type));
     }
     this.setState({
@@ -77,7 +81,9 @@ class Signup extends Component {
             onChange={(e) => this.handleInputChange('type', e.target.value)}
             value={this.state.type}
           >
-            <option>Please Select Type</option>
+            <option value='' selected disabled hidden>
+              Select Type
+            </option>
             <option value='teacher'>teacher</option>
             <option value='student'>student</option>
           </select>

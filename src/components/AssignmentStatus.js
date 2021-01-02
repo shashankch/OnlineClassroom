@@ -22,12 +22,6 @@ class AssignmentStatus extends Component {
     this.handleFilter();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      this.handleFilter();
-    }
-  }
-  // element.id._id !== student._id;   sub all
   handleFilter = () => {
     console.log('this.props&&', this.props);
     this.setState({
@@ -47,24 +41,22 @@ class AssignmentStatus extends Component {
       return true;
     });
 
-    console.log('all', all);
     this.setState({
       submit: sub,
       notsubmit: all,
     });
   };
 
-  handleInputChange = (value, sid, aid) => {
+  handleInputChange = (value, sid, aid, uid) => {
     this.setState({
       grade: value,
     });
     if (value && sid && aid) {
-      this.props.dispatch(evaluate(aid, sid, value));
+      this.props.dispatch(evaluate(aid, sid, value, uid));
     }
   };
 
   render(props) {
-    console.log('yeh dekhna', this.props);
     return (
       <div>
         <div>
@@ -92,7 +84,8 @@ class AssignmentStatus extends Component {
                         this.handleInputChange(
                           e.target.value,
                           std.id._id,
-                          this.props.assign._id
+                          this.props.assign._id,
+                          this.props.assign.owner
                         )
                       }
                       value={std.status}

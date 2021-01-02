@@ -88,11 +88,13 @@ export function submit(somedata) {
       })
       .then((data) => {
         dispatch(submitAssignment(data.message));
+        dispatch(getAssignments());
       });
   };
 }
 
-export function evaluate(aid, sid, grade) {
+export function evaluate(aid, sid, grade, uid) {
+  console.log('uid', uid);
   return (dispatch) => {
     const url = APIUrls.evaluateAssignment();
     const token = getAuthTokenFromLocalStorage();
@@ -110,7 +112,7 @@ export function evaluate(aid, sid, grade) {
       })
       .then((data) => {
         dispatch(evaluateAssignment(data.message));
-        dispatch(getAssignments());
+        dispatch(getmyAssignments(uid));
       });
   };
 }

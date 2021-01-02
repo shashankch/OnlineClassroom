@@ -6,7 +6,6 @@ class Grade extends Component {
     this.state = {
       grade: 'Not Submitted',
     };
-    this.checkEvaluation();
   }
 
   componentDidMount() {
@@ -25,9 +24,6 @@ class Grade extends Component {
   };
 
   render(props) {
-    console.log('yeh prop', this.props);
-    console.log('yeh prop', this.state);
-   
     return <div>Status: {this.state.grade}</div>;
   }
 }

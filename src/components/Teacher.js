@@ -40,11 +40,10 @@ class Teacher extends Component {
   }
 
   render(props) {
-    const { assignments, filteredAssign } = this.props.assignments;
+    const { filteredAssign } = this.props.assignments;
 
     const { success } = this.props;
-    const { user } = this.props.auth;
-    console.log('userid', user._id);
+
     return (
       <div>
         {success && <div>{success}</div>}

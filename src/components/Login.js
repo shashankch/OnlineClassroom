@@ -49,7 +49,7 @@ class Login extends Component {
     if (isLoggedin) {
       return <Redirect to={from} />;
     }
-    console.log('are baba yeh props:', this.props);
+   
     return (
       <form className='login-form'>
         <span className='login-signup-header'>Log In</span>

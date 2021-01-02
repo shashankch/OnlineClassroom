@@ -8,5 +8,5 @@ export const APIUrls = {
   evaluateAssignment: () => `${API_ROOT}/assignment/evaluate`,
   getAllAssignments: () => `${API_ROOT}/assignment/all-assignments`,
   getAllStudents: () => `${API_ROOT}/user/all-students`,
-  downloadfile: () => `${API_ROOT}/user/pdf`,
+  getmyAssign: () => `${API_ROOT}/assignment/my-assign`,
 };

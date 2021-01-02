@@ -20,7 +20,10 @@ class Profile extends Component {
   handleSave = () => {
     const { password, name } = this.state;
     const { user } = this.props.auth;
-    this.props.dispatch(editUser(name, password, user._id));
+    if (name && password) {
+      this.props.dispatch(editUser(name, password, user._id));
+    }
+
     this.setState({ editMode: false, name: name, password: '' });
   };
 

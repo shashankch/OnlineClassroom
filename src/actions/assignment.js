@@ -2,24 +2,49 @@ import {
   GET_ALL_ASSIGNMENTS,
   SUBMIT_ASSIGNMENT,
   EVALUATE_ASSIGNMENT,
-  LOG_OUT,
   CREATE_ASSIGNMENT,
   GET_ALL_STD,
+  GET_MY_ASSIGNMENT,
 } from './actionTypes';
+
 import { APIUrls } from '../helpers/urls';
 import { getFormBody, getAuthTokenFromLocalStorage } from '../helpers/utils';
-//import axios from 'axios';
+
 export function getAssignments() {
   return (dispatch) => {
     const url = APIUrls.getAllAssignments();
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
         if (data.success) {
           // dispatch action to save user
 
           dispatch(getAllAssignments(data.data.assignments));
+
+          return;
+        }
+      });
+  };
+}
+
+export function getmyAssignments(id) {
+  return (dispatch) => {
+    const url = APIUrls.getmyAssign();
+    const token = getAuthTokenFromLocalStorage();
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${token}`,
+      },
+      body: getFormBody({ id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // dispatch action to save user
+
+          dispatch(getmyassign(data.data.assignments));
 
           return;
         }
@@ -33,7 +58,6 @@ export function getAllStudents() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
         if (data.success) {
           // dispatch action to save user
 
@@ -46,11 +70,9 @@ export function getAllStudents() {
 }
 
 export function submit(somedata) {
-  console.log('data^^^^', somedata);
   return (dispatch) => {
     const url = APIUrls.submitAssignment();
     const token = getAuthTokenFromLocalStorage();
-    console.log('are yeh url:', url);
 
     const options = {
       method: 'POST',
@@ -59,23 +81,22 @@ export function submit(somedata) {
       },
       body: somedata,
     };
-    // delete options.headers['Content-Type'];
+
     fetch(url, options)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log('are idhar :', data);
-
         dispatch(submitAssignment(data.message));
       });
   };
 }
+
 export function evaluate(aid, sid, grade) {
   return (dispatch) => {
     const url = APIUrls.evaluateAssignment();
     const token = getAuthTokenFromLocalStorage();
-    console.log('are yeh url:', url);
+
     fetch(url, {
       method: 'POST',
       headers: {
@@ -88,8 +109,6 @@ export function evaluate(aid, sid, grade) {
         return response.json();
       })
       .then((data) => {
-        console.log('are idhar :', data);
-
         dispatch(evaluateAssignment(data.message));
         dispatch(getAssignments());
       });
@@ -101,7 +120,7 @@ export function create(title, description, id) {
   return (dispatch) => {
     const url = APIUrls.createAssignment();
     const token = getAuthTokenFromLocalStorage();
-    console.log('are yeh url:', url);
+
     fetch(url, {
       method: 'POST',
       headers: {
@@ -114,8 +133,6 @@ export function create(title, description, id) {
         return response.json();
       })
       .then((data) => {
-        console.log('are idhar :', data);
-
         dispatch(createAssignment(data.message));
         dispatch(getAssignments());
       });
@@ -150,5 +167,11 @@ export function getStudents(std) {
   return {
     type: GET_ALL_STD,
     std,
+  };
+}
+export function getmyassign(filter) {
+  return {
+    type: GET_MY_ASSIGNMENT,
+    filter,
   };
 }

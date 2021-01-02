@@ -26,6 +26,7 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         error: null,
+        success: null,
       };
 
     case LOGIN_START:
@@ -35,13 +36,19 @@ export default function auth(state = initialAuthState, action) {
         inProgress: true,
       };
     case LOGIN_SUCCESS:
-    case SIGNUP_SUCCESS:
       return {
         ...state,
         user: action.user,
         isLoggedin: true,
         inProgress: false,
         error: null,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        inProgress: false,
+        error: null,
+        success: action.message,
       };
 
     case LOGIN_FAILED:

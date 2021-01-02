@@ -26,10 +26,11 @@ export function loginFailed(errorMessage) {
   };
 }
 
-export function loginSuccess(user) {
+export function loginSuccess(user, message) {
   return {
     type: LOGIN_SUCCESS,
     user,
+    message,
   };
 }
 
@@ -52,12 +53,11 @@ export function login(email, password) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
         if (data.success) {
           // dispatch action to save user
 
           localStorage.setItem('token', data.data.token);
-          dispatch(loginSuccess(data.data.user));
+          dispatch(loginSuccess(data.data.user, data.message));
           return;
         }
         dispatch(loginFailed(data.message));
@@ -96,8 +96,7 @@ export function signup(email, password, name, type) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('@@@data@@@@', data);
-        if (data.message === 'Registration Success!') {
+        if (data.success) {
           dispatch(signupSuccessful(data.message));
           return;
         }
@@ -119,10 +118,10 @@ export function signupFailed(error) {
   };
 }
 
-export function signupSuccessful(error) {
+export function signupSuccessful(message) {
   return {
     type: SIGNUP_SUCCESS,
-    error,
+    message,
   };
 }
 
@@ -159,7 +158,6 @@ export function editUser(name, password, userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('edit profile data', data);
         if (data.success) {
           dispatch(editUserSuccessful(data.data.user, data.message));
           if (data.data.token) {

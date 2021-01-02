@@ -12,7 +12,7 @@ class Navbar extends React.Component {
 
   render() {
     const { auth } = this.props;
-    console.log('auth***', auth);
+
     return (
       <nav className='nav'>
         <div className='right-nav'>
@@ -38,7 +38,7 @@ class Navbar extends React.Component {
               <div className='nav-links'>
                 <ul>
                   <li>
-                    <Link to='/profile'>{auth.user && auth.user.name}</Link>
+                    <Link to='/profile'>{auth.user.name}</Link>
                   </li>
                 </ul>
               </div>

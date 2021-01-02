@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAssignments, create } from '../actions/assignment';
+import {
+  getAssignments,
+  create,
+  getmyAssignments,
+} from '../actions/assignment';
 import { AssignmentStatus } from './';
 class Teacher extends Component {
   constructor(props) {
@@ -32,11 +36,12 @@ class Teacher extends Component {
 
   componentDidMount() {
     this.props.dispatch(getAssignments());
+    this.props.dispatch(getmyAssignments(this.props.auth.user._id));
   }
 
   render(props) {
-    const { assignments } = this.props.assignments;
-    console.log('$$$$', assignments);
+    const { assignments, filteredAssign } = this.props.assignments;
+
     const { success } = this.props;
     const { user } = this.props.auth;
     console.log('userid', user._id);
@@ -68,7 +73,7 @@ class Teacher extends Component {
           </div>
         </form>
         <ul>
-          {assignments.map((assign) => {
+          {filteredAssign.map((assign) => {
             return (
               <li>
                 <div>Title: {assign.title}</div>
@@ -76,7 +81,7 @@ class Teacher extends Component {
                 <div>
                   <AssignmentStatus assign={assign} />
                 </div>
-                <hr/>
+                <hr />
               </li>
             );
           })}

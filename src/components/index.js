@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Teacher from './Teacher';
 import Student from './Student';
 import AssignmentStatus from './AssignmentStatus';
+import Grade from './Grade';
 export {
   App,
   Navbar,
@@ -19,4 +20,5 @@ export {
   Teacher,
   Student,
   AssignmentStatus,
+  Grade,
 };

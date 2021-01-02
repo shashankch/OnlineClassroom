@@ -3,9 +3,11 @@ import {
   SUBMIT_ASSIGNMENT,
   EVALUATE_ASSIGNMENT,
   GET_ALL_STD,
+  GET_MY_ASSIGNMENT
 } from '../actions/actionTypes';
 
 const initialState = {
+  filteredAssign: [],
   assignments: [],
   students: [],
   success: null,
@@ -14,6 +16,11 @@ const initialState = {
 
 export default function assignment(state = initialState, action) {
   switch (action.type) {
+    case GET_MY_ASSIGNMENT:
+      return {
+        ...state,
+        filteredAssign: action.filter,
+      };
     case GET_ALL_ASSIGNMENTS:
       return {
         ...state,

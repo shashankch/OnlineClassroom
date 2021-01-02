@@ -7,4 +7,16 @@ import Signup from './Signup';
 import Profile from './Profile';
 import Teacher from './Teacher';
 import Student from './Student';
-export { App, Navbar, Home, Page404, Login, Signup, Profile, Teacher, Student };
+import AssignmentStatus from './AssignmentStatus';
+export {
+  App,
+  Navbar,
+  Home,
+  Page404,
+  Login,
+  Signup,
+  Profile,
+  Teacher,
+  Student,
+  AssignmentStatus,
+};

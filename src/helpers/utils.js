@@ -6,7 +6,7 @@ export function getFormBody(params) {
     let encodedValue = encodeURIComponent(params[property]); // shashank 22 => shashank%2022
     formBody.push(encodedKey + '=' + encodedValue);
   }
-
+  console.log('formurl', formBody.join('&'));
   return formBody.join('&'); //'username=shashank&password=1222'
 }
 export function getAuthTokenFromLocalStorage() {

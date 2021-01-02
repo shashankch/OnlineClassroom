@@ -35,11 +35,10 @@ class Navbar extends React.Component {
                 alt='user-dp'
                 id='user-dp'
               />
-
               <div className='nav-links'>
                 <ul>
                   <li>
-                    <Link to='/profile'>{auth.user.name}</Link>
+                    <Link to='/profile'>{auth.user && auth.user.name}</Link>
                   </li>
                 </ul>
               </div>

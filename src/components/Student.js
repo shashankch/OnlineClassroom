@@ -12,6 +12,7 @@ import {
   ListGroup,
   Badge,
 } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 class Student extends Component {
   constructor(props) {
     super(props);
@@ -30,11 +31,14 @@ class Student extends Component {
 
   onClickHandler = (e, aid) => {
     if (this.state.selectedFile !== null) {
+      toast('File Uploaded !');
       const data = new FormData();
       data.append('file', this.state.selectedFile);
       data.append('aid', aid);
       this.props.dispatch(submit(data));
     }
+    e.target.files = null;
+    this.setState({ selectedFile: null });
   };
 
   handleFilter = () => {
@@ -70,6 +74,12 @@ class Student extends Component {
   componentDidMount() {
     this.props.dispatch(getAssignments());
     this.handleFilter();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      this.handleFilter();
+    }
   }
 
   render(props) {

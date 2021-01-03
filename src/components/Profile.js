@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editUser, clearAuthState } from '../actions/auth';
 import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class Profile extends Component {
     const { password, name } = this.state;
     const { user } = this.props.auth;
     if (name && password) {
+      toast('Profile updated !!');
       this.props.dispatch(editUser(name, password, user._id));
     }
 
@@ -37,6 +39,7 @@ class Profile extends Component {
     const { editMode } = this.state;
     return (
       <Row>
+        <ToastContainer />
         <Col xs={12} md={{ span: 6, offset: 3 }}>
           <Card style={{ marginTop: '5rem', width: '30rem' }}>
             <Card.Img

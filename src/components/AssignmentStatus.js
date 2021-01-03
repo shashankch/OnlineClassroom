@@ -13,6 +13,7 @@ import {
   Alert,
   ListGroup,
 } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 class AssignmentStatus extends Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class AssignmentStatus extends Component {
       grade: value,
     });
     if (value && sid && aid) {
+      toast('Assignment Evaluated !!');
       this.props.dispatch(evaluate(aid, sid, value, uid));
     }
   };

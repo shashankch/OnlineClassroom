@@ -16,17 +16,13 @@ class Navbarr extends React.Component {
 
     return (
       <Navbar bg='light' variant='light'>
-        <Navbar.Brand>
-          <Link to='/'>E-Learning</Link>
-        </Navbar.Brand>
+        <Navbar.Brand>E-Learning</Navbar.Brand>
         <Nav className='mr-auto'>
-          <Nav.Link>
-            <Link to='/'>Home</Link>
-          </Nav.Link>
+          <Nav.Link href='/'>Home</Nav.Link>
         </Nav>
         <Nav className='ml-auto'>
           {auth.isLoggedin && (
-            <Nav.Link>
+            <Nav.Link href='/profile'>
               <img
                 src='https://www.flaticon.com/svg/static/icons/svg/847/847969.svg'
                 alt='user-dp'
@@ -35,24 +31,18 @@ class Navbarr extends React.Component {
                 className='d-inline-block align-top'
               />
 
-              <Link to='/profile'>{auth.user.name}</Link>
+              {auth.user.name}
             </Nav.Link>
           )}
 
-          {!auth.isLoggedin && (
-            <Nav.Link>
-              <Link to='/login'>Log-in</Link>
-            </Nav.Link>
-          )}
+          {!auth.isLoggedin && <Nav.Link href='/login'>Log-in</Nav.Link>}
 
           {auth.isLoggedin && (
             <Nav.Link onClick={this.logOut}>Log-out</Nav.Link>
           )}
 
           {!auth.isLoggedin && (
-            <Nav.Link>
-              <Link to='/signup'>Create-account</Link>
-            </Nav.Link>
+            <Nav.Link href='/signup'>Create-account</Nav.Link>
           )}
         </Nav>
       </Navbar>

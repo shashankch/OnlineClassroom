@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signup, clearAuthState } from '../actions/auth';
 import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +30,7 @@ class Signup extends Component {
     const { email, password, name, type } = this.state;
 
     if (email && password && name && type) {
+      toast(`Welcome ${name}  !`);
       this.props.dispatch(signup(email, password, name, type));
     }
     this.setState({
@@ -43,6 +45,7 @@ class Signup extends Component {
     const { inProgress, error, success } = this.props.auth;
     return (
       <Row>
+        <ToastContainer />
         <Col xs={12} md={{ span: 6, offset: 3 }}>
           <Card style={{ marginTop: '5rem' }}>
             <Card.Body>
@@ -117,11 +120,19 @@ class Signup extends Component {
 
                 <Col xs={12} md={{ offset: 4 }}>
                   {inProgress ? (
-                    <Button onClick={this.onFormSubmit} disabled={inProgress}   size='lg'>
+                    <Button
+                      onClick={this.onFormSubmit}
+                      disabled={inProgress}
+                      size='lg'
+                    >
                       Checking status...
                     </Button>
                   ) : (
-                    <Button onClick={this.onFormSubmit} disabled={inProgress}   size='lg'>
+                    <Button
+                      onClick={this.onFormSubmit}
+                      disabled={inProgress}
+                      size='lg'
+                    >
                       Register
                     </Button>
                   )}

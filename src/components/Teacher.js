@@ -9,6 +9,7 @@ import {
 } from '../actions/assignment';
 import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
 import { AssignmentStatus } from './';
+import { ToastContainer, toast } from 'react-toastify';
 class Teacher extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +30,7 @@ class Teacher extends Component {
     const { title, description } = this.state;
 
     if (title && description) {
+      toast('Assignment Created !!');
       this.props.dispatch(create(title, description, this.props.auth.user._id));
     }
     this.setState({

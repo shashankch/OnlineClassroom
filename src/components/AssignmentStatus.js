@@ -4,6 +4,15 @@ import {
   evaluate,
   getAssignments,
 } from '../actions/assignment';
+import {
+  Form,
+  Button,
+  Card,
+  Col,
+  Row,
+  Alert,
+  ListGroup,
+} from 'react-bootstrap';
 import { connect } from 'react-redux';
 class AssignmentStatus extends Component {
   constructor(props) {
@@ -60,25 +69,26 @@ class AssignmentStatus extends Component {
     return (
       <div>
         <div>
-          <h3>Submitted Students: </h3>
-          <ul>
+          <Card.Title>Submitted Students: </Card.Title>
+          <ListGroup variant='flush'>
             {this.state.submit.map((std) => {
               return (
-                <li>
-                  <div>
-                    <div>Name:{std.id.name}</div>
-                    <div>EmailId: {std.id.email}</div>
-                    <div>
-                      File uploaded:
-                      <a
-                        href={'http://localhost:8000' + std.upload}
-                        target='_blank'
-                        rel='noreferrer'
-                      >
-                        Link
-                      </a>
-                    </div>
-                    <select
+                <ListGroup.Item>
+                  <Card.Text>Name:{std.id.name}</Card.Text>
+                  <Card.Text>EmailId: {std.id.email}</Card.Text>
+                  File uploaded:
+                  <Button
+                    variant='link'
+                    href={'http://localhost:8000' + std.upload}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    Download
+                  </Button>
+                  <Form.Group controlId='exampleForm.ControlSelect1'>
+                    <Form.Label>Grade</Form.Label>
+                    <Form.Control
+                      as='select'
                       required
                       onChange={(e) =>
                         this.handleInputChange(
@@ -96,28 +106,26 @@ class AssignmentStatus extends Component {
                       <option value='A'>A</option>
                       <option value='B'>B</option>
                       <option value='C'>C</option>
-                    </select>
-                  </div>
-                  <div>{std.name}</div>
-                  <div>{std.email}</div>
-                </li>
+                    </Form.Control>
+                  </Form.Group>
+                </ListGroup.Item>
               );
             })}
-          </ul>
+          </ListGroup>
         </div>
 
         <div>
-          <h3>Not Submitted Students: </h3>
-          <ul>
+          <Card.Title>Not Submitted Students: </Card.Title>
+          <ListGroup>
             {this.state.notsubmit.map((std) => {
               return (
-                <li>
+                <ListGroup.Item>
                   <div>Name:{std.name}</div>
                   <div>EmailId: {std.email}</div>
-                </li>
+                </ListGroup.Item>
               );
             })}
-          </ul>
+          </ListGroup>
         </div>
       </div>
     );

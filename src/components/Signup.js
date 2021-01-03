@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signup, clearAuthState } from '../actions/auth';
-
+import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -42,65 +42,95 @@ class Signup extends Component {
   render() {
     const { inProgress, error, success } = this.props.auth;
     return (
-      <form className='login-form'>
-        <span className='login-signup-header'> Register</span>
-        {error && <div className='alert error-dailog'>{error}</div>}
-        {success && <div className='alert success-dailog'>{success}</div>}
+      <Row>
+        <Col xs={12} md={{ span: 6, offset: 3 }}>
+          <Card style={{ marginTop: '5rem' }}>
+            <Card.Body>
+              <Form>
+                <Card.Title>Register</Card.Title>
 
-        <div className='field'>
-          <input
-            placeholder='Name'
-            type='text'
-            required
-            onChange={(e) => this.handleInputChange('name', e.target.value)}
-            value={this.state.name}
-          />
-        </div>
-        <div className='field'>
-          <input
-            placeholder='Email'
-            type='email'
-            required
-            onChange={(e) => this.handleInputChange('email', e.target.value)}
-            value={this.state.email}
-          />
-        </div>
+                {error && (
+                  <Alert show={error !== null} variant={'danger'}>
+                    {error}
+                  </Alert>
+                )}
+                {success && (
+                  <Alert show={success !== null} variant={success}>
+                    {success}
+                  </Alert>
+                )}
 
-        <div className='field'>
-          <input
-            placeholder='Password'
-            type='password'
-            required
-            onChange={(e) => this.handleInputChange('password', e.target.value)}
-            value={this.state.password}
-          />
-        </div>
-        <div className='field'>
-          <select
-            required
-            onChange={(e) => this.handleInputChange('type', e.target.value)}
-            value={this.state.type}
-          >
-            <option value='' selected disabled hidden>
-              Select Type
-            </option>
-            <option value='teacher'>teacher</option>
-            <option value='student'>student</option>
-          </select>
-        </div>
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    placeholder='Name'
+                    type='text'
+                    required
+                    onChange={(e) =>
+                      this.handleInputChange('name', e.target.value)
+                    }
+                    value={this.state.name}
+                  />
+                </Form.Group>
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    placeholder='Email'
+                    type='email'
+                    required
+                    onChange={(e) =>
+                      this.handleInputChange('email', e.target.value)
+                    }
+                    value={this.state.email}
+                  />
+                </Form.Group>
 
-        <div className='field'>
-          {inProgress ? (
-            <button onClick={this.onFormSubmit} disabled={inProgress}>
-              Checking status...
-            </button>
-          ) : (
-            <button onClick={this.onFormSubmit} disabled={inProgress}>
-              Register
-            </button>
-          )}
-        </div>
-      </form>
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    placeholder='Password'
+                    type='password'
+                    required
+                    onChange={(e) =>
+                      this.handleInputChange('password', e.target.value)
+                    }
+                    value={this.state.password}
+                  />
+                </Form.Group>
+                <Form.Group controlId='exampleForm.ControlSelect1'>
+                  <Form.Label>Type</Form.Label>
+                  <Form.Control
+                    as='select'
+                    required
+                    onChange={(e) =>
+                      this.handleInputChange('type', e.target.value)
+                    }
+                    value={this.state.type}
+                  >
+                    <option value='' selected disabled hidden>
+                      Select Type
+                    </option>
+                    <option value='teacher'>teacher</option>
+                    <option value='student'>student</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Col xs={12} md={{ offset: 4 }}>
+                  {inProgress ? (
+                    <Button onClick={this.onFormSubmit} disabled={inProgress}   size='lg'>
+                      Checking status...
+                    </Button>
+                  ) : (
+                    <Button onClick={this.onFormSubmit} disabled={inProgress}   size='lg'>
+                      Register
+                    </Button>
+                  )}
+                </Col>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }

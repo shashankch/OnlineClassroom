@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login, clearAuthState } from '../actions/auth';
-
+import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -49,43 +49,71 @@ class Login extends Component {
     if (isLoggedin) {
       return <Redirect to={from} />;
     }
-   
+
     return (
-      <form className='login-form'>
-        <span className='login-signup-header'>Log In</span>
-        {error && <div className='alert error-dailog'>{error}</div>}
-        <div className='field'>
-          <input
-            type='email'
-            placeholder='Email'
-            required
-            // ref={this.emailInputRef}
-            onChange={this.handleEmailChange}
-            value={this.state.email}
-          />
-        </div>
-        <div className='field'>
-          <input
-            type='password'
-            placeholder='Password'
-            required
-            // ref={this.passwordInputRef}
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-          />
-        </div>
-        <div className='field'>
-          {inProgress ? (
-            <button onClick={this.handleFormSubmit} disabled={inProgress}>
-              Logging in...
-            </button>
-          ) : (
-            <button onClick={this.handleFormSubmit} disabled={inProgress}>
-              Log In
-            </button>
-          )}
-        </div>
-      </form>
+      <Row>
+        <Col xs={12} md={{ span: 6, offset: 3 }}>
+          <Card style={{ marginTop: '5rem' }}>
+            <Card.Body>
+              <Form>
+                <Card.Title>Log In</Card.Title>
+                {error && (
+                  <Alert show={error !== null} variant={'danger'}>
+                    {error}
+                  </Alert>
+                )}
+
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type='email'
+                    placeholder='Email'
+                    required
+                    // ref={this.emailInputRef}
+                    onChange={this.handleEmailChange}
+                    value={this.state.email}
+                  />
+                  <Form.Text className='text-muted'>
+                    We'll never share your email with anyone else.
+                  </Form.Text>
+                </Form.Group>
+                <Form.Group controlId='formBasicPassword'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type='password'
+                    placeholder='Password'
+                    required
+                    // ref={this.passwordInputRef}
+                    onChange={this.handlePasswordChange}
+                    value={this.state.password}
+                  />
+                </Form.Group>
+                <Col xs={12} md={{ offset: 4 }}>
+                  {inProgress ? (
+                    <Button
+                      size='lg'
+                      onClick={this.handleFormSubmit}
+                      disabled={inProgress}
+                    >
+                      Logging in...
+                    </Button>
+                  ) : (
+                    <Button
+                      size='lg'
+                      variant='primary'
+                      type='submit'
+                      onClick={this.handleFormSubmit}
+                      disabled={inProgress}
+                    >
+                      Log In
+                    </Button>
+                  )}
+                </Col>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }

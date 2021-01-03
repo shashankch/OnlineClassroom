@@ -5,10 +5,13 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { Home, Navbar, Page404, Login, Signup, Profile } from './';
+import { Home, Navbarr, Page404, Login, Signup, Profile } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { connect } from 'react-redux';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 const PrivateRoute = (privateRouteProps) => {
   const { isLoggedin, path, component: Component } = privateRouteProps;
 
@@ -48,7 +51,7 @@ class App extends React.Component {
           email: user.email,
           _id: user._id,
           name: user.name,
-          type:user.type
+          type: user.type,
         })
       );
     }
@@ -58,26 +61,29 @@ class App extends React.Component {
     const { auth } = this.props;
     return (
       <Router>
-        <div>
-          <Navbar />
-
-          <Switch>
-            <Route path='/login' component={Login} />
-            <Route path='/signup' component={Signup} />
-            <PrivateRoute
-              exact
-              path='/'
-              component={Home}
-              isLoggedin={auth.isLoggedin}
-            />
-            <PrivateRoute
-              path='/profile'
-              component={Profile}
-              isLoggedin={auth.isLoggedin}
-            />
-            <Route component={Page404} />
-          </Switch>
-        </div>
+        <Navbarr />
+        <Container fluid>
+          <Row>
+            <Col>
+              <Switch>
+                <Route path='/login' component={Login} />
+                <Route path='/signup' component={Signup} />
+                <PrivateRoute
+                  exact
+                  path='/'
+                  component={Home}
+                  isLoggedin={auth.isLoggedin}
+                />
+                <PrivateRoute
+                  path='/profile'
+                  component={Profile}
+                  isLoggedin={auth.isLoggedin}
+                />
+                <Route component={Page404} />
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
       </Router>
     );
   }

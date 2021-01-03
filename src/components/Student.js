@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { getAssignments, submit } from '../actions/assignment';
 import { connect } from 'react-redux';
 import { Grade } from './';
+import {
+  Form,
+  Button,
+  Card,
+  Col,
+  Row,
+  Alert,
+  ListGroup,
+  Badge,
+} from 'react-bootstrap';
 class Student extends Component {
   constructor(props) {
     super(props);
@@ -66,52 +76,62 @@ class Student extends Component {
     const { notsubmit, submit } = this.state;
 
     return (
-      <div>
-        <ul>
-          <h3>upcoming Assignments</h3>
-          {notsubmit.map((assign) => {
-            return (
-              <li>
-                <div>Title: {assign.title}</div>
-                <div>Description: {assign.description}</div>
-                <div>Teacher Name: {assign.owner.name}</div>
-                <div>Teacher Email: {assign.owner.email}</div>
-                <div>
-                  <input
-                    type='file'
-                    name='file'
-                    onChange={this.onChangeHandler}
-                  />
-                  <button onClick={(e) => this.onClickHandler(e, assign._id)}>
-                    Upload
-                  </button>
-                </div>
-                <div>
-                  <Grade assign={assign} user={this.props.auth.user._id} />
-                </div>
-                <hr />
-              </li>
-            );
-          })}
-        </ul>
-        <ul>
-          <h3>Submitted Assignments</h3>
-          {submit.map((assign) => {
-            return (
-              <li>
-                <div>Title: {assign.title}</div>
-                <div>Description: {assign.description}</div>
-                <div>Teacher Name: {assign.owner.name}</div>
-                <div>Teacher Email: {assign.owner.email}</div>
-                <div>
-                  <Grade assign={assign} user={this.props.auth.user._id} />
-                </div>
-                <hr />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <Row>
+        <Col xs={12} md={{ span: 6, offset: 3 }}>
+          <Card style={{ marginTop: '5rem', width: '40rem' }}>
+            <Card.Header>UPCOMING ASSIGNMENTS</Card.Header>
+            <Card.Body>
+              <ListGroup variant='flush'>
+                {notsubmit.map((assign) => {
+                  return (
+                    <ListGroup.Item>
+                      <Card.Title>Title: {assign.title}</Card.Title>
+                      <Card.Text>Description: {assign.description}</Card.Text>
+                      <Card.Text>Teacher Name: {assign.owner.name}</Card.Text>
+                      <Card.Text>Teacher Email: {assign.owner.email}</Card.Text>
+                      <Form.Group controlId='formBasicEmail'>
+                        <Form.Label>Upload Assignment</Form.Label>
+                        <Form.Control
+                          type='file'
+                          name='file'
+                          onChange={this.onChangeHandler}
+                        />
+                      </Form.Group>
+                      <Button
+                        variant='outline-primary'
+                        onClick={(e) => this.onClickHandler(e, assign._id)}
+                      >
+                        Upload
+                      </Button>
+
+                      <Grade assign={assign} user={this.props.auth.user._id} />
+                    </ListGroup.Item>
+                  );
+                })}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+          <Card style={{ marginTop: '5rem', width: '40rem' }}>
+            <Card.Header>SUBMITTED ASSIGNMENTS</Card.Header>
+
+            <ListGroup.Item>
+              {submit.map((assign) => {
+                return (
+                  <ListGroup.Item>
+                    <Card.Title>Title: {assign.title}</Card.Title>
+                    <Card.Text>Description: {assign.description}</Card.Text>
+                    <Card.Text>Teacher Name: {assign.owner.name}</Card.Text>
+                    <Card.Text>Teacher Email: {assign.owner.email}</Card.Text>
+                    <div>
+                      <Grade assign={assign} user={this.props.auth.user._id} />
+                    </div>
+                  </ListGroup.Item>
+                );
+              })}
+            </ListGroup.Item>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }

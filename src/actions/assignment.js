@@ -5,6 +5,7 @@ import {
   CREATE_ASSIGNMENT,
   GET_ALL_STD,
   GET_MY_ASSIGNMENT,
+  CLEAR_AUTH_STATE
 } from './actionTypes';
 
 import { APIUrls } from '../helpers/urls';
@@ -136,7 +137,7 @@ export function create(title, description, id) {
       })
       .then((data) => {
         dispatch(createAssignment(data.message));
-        dispatch(getAssignments());
+        dispatch(getmyAssignments(id));
       });
   };
 }
@@ -175,5 +176,10 @@ export function getmyassign(filter) {
   return {
     type: GET_MY_ASSIGNMENT,
     filter,
+  };
+}
+export function clearAuthState() {
+  return {
+    type: CLEAR_AUTH_STATE,
   };
 }

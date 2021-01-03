@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editUser, clearAuthState } from '../actions/auth';
+import { Form, Button, Card, Col, Row, Alert } from 'react-bootstrap';
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -35,70 +36,78 @@ class Profile extends Component {
     const { user, error, success } = this.props.auth;
     const { editMode } = this.state;
     return (
-      <div className='settings'>
-        <div className='img-container'>
-          <img
-            src='https://www.flaticon.com/svg/static/icons/svg/3237/3237472.svg'
-            alt='user-dp'
-          />
-        </div>
-        {error && <div className='alert error-dailog'>{error}</div>}
-        {success && <div className='alert success-dailog'>{success}</div>}
-        <div className='field'>
-          <div className='field-label'>Email</div>
-          <div className='field-value'>{user.email}</div>
-        </div>
-        <div className='field'>
-          <div className='field-label'>Name</div>
-          {editMode ? (
-            <input
-              type='text'
-              onChange={(e) => this.handleChange('name', e.target.value)}
-              value={this.state.name}
+      <Row>
+        <Col xs={12} md={{ span: 6, offset: 3 }}>
+          <Card style={{ marginTop: '5rem', width: '30rem' }}>
+            <Card.Img
+              variant='top'
+              src='https://www.flaticon.com/svg/static/icons/svg/3237/3237472.svg'
+              alt='user-dp'
+              height='100px'
+              width='180px'
             />
-          ) : (
-            <div className='field-value'>{user.name}</div>
-          )}
-        </div>
+            <Card.Body>
+              {error && (
+                <Alert show={error !== null} variant={'danger'}>
+                  {error}
+                </Alert>
+              )}
+              {success && (
+                <Alert show={success !== null} variant={success}>
+                  {success}
+                </Alert>
+              )}
 
-        {editMode && (
-          <div className='field'>
-            <div className='field-label'>New Password</div>
-            <input
-              type='password'
-              onChange={(e) => this.handleChange('password', e.target.value)}
-              value={this.state.password}
-            />
-          </div>
-        )}
+              <Form.Group controlId='formBasicEmail'>
+                <Form.Label>Email address:</Form.Label>
+                <h5>{user.email}</h5>
+              </Form.Group>
+              <Form.Group controlId='formBasicEmail'>
+                <Form.Label>Name</Form.Label>
+                {editMode ? (
+                  <Form.Control
+                    type='text'
+                    onChange={(e) => this.handleChange('name', e.target.value)}
+                    value={this.state.name}
+                  />
+                ) : (
+                  <h5>{user.name}</h5>
+                )}
+              </Form.Group>
 
-        <div className='btn-grp'>
-          {editMode ? (
-            <button
-              className='button save-btn'
-              onClick={() => this.handleSave()}
-            >
-              Save
-            </button>
-          ) : (
-            <button
-              className='button edit-btn'
-              onClick={() => this.handleChange('editMode', true)}
-            >
-              Edit profile
-            </button>
-          )}
+              {editMode && (
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label>New Password</Form.Label>
+                  <Form.Control
+                    type='password'
+                    onChange={(e) =>
+                      this.handleChange('password', e.target.value)
+                    }
+                    value={this.state.password}
+                  />
+                </Form.Group>
+              )}
 
-          {editMode && (
-            <div
-              className='go-back'
-              onClick={() => this.handleChange('editMode', false)}
-            >
-              Go back
-            </div>
-          )}
-        </div>
-      </div>
+              {editMode ? (
+                <Button onClick={() => this.handleSave()}>Save</Button>
+              ) : (
+                <Button onClick={() => this.handleChange('editMode', true)}>
+                  Edit profile
+                </Button>
+              )}
+
+              {editMode && (
+                <Button
+                  variant='link'
+                  onClick={() => this.handleChange('editMode', false)}
+                >
+                  Go back
+                </Button>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }

@@ -1,5 +1,5 @@
 import App from './App';
-import Navbar from './Navbar';
+import Navbarr from './Navbarr';
 import Home from './Home';
 import Page404 from './Page404';
 import Login from './Login';
@@ -11,7 +11,7 @@ import AssignmentStatus from './AssignmentStatus';
 import Grade from './Grade';
 export {
   App,
-  Navbar,
+  Navbarr,
   Home,
   Page404,
   Login,

@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-
+import {
+  Form,
+  Button,
+  Card,
+  Col,
+  Row,
+  Alert,
+  ListGroup,
+  Badge,
+} from 'react-bootstrap';
 class Grade extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +33,7 @@ class Grade extends Component {
   };
 
   render(props) {
-    return <div>Status: {this.state.grade}</div>;
+    return <Card.Text>Status/Grade :: {this.state.grade}</Card.Text>;
   }
 }
 

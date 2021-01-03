@@ -6,6 +6,8 @@
 - Create/Evaluate/Check Submission Status/Download Assignments - Teacher
 - Submit Assignment Solutions in PDF and check Grades Assigned - Student
 
+![project screenshots](assets/a1.png)
+
 ## Steps to run locally:
 
 ```
@@ -15,9 +17,9 @@
 
 3.1. git clone https://github.com/shashankch/OnlineClassroom-backend.git.
 
-3. cd OnlineClassroom-backend - npm install.
+4. cd OnlineClassroom-backend - npm install.
 
-4. npm start on both front end and backend application.
+5. npm start on both front end and backend application.
 
 
 ```
